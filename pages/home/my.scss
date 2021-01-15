@@ -1,0 +1,283 @@
+.page{
+	position: absolute;
+	width: 100vw;
+	min-height: 100vh;
+	background-color: #EEEEEE;
+	.noLogin-img{
+		width: 100vw;
+		height: 53.7vw;
+		max-width: 375px;
+		height: 201px;
+		image{
+			width: 100%;
+			height: 100%;
+		}
+	}
+	.noLogin-text{
+		width: 100vw;
+		display: flex;
+		justify-content: center;
+	}
+}
+$base:"#FBEC98";
+$assist-clor:"#FFFFFF";
+$change-clor:"#8DC63F";
+$price-clor:"#E54D42";
+.bg-topic-theme {
+    background-color: #6739B6;
+    color: #333333;
+}
+.userLevel{
+				position: absolute;
+				bottom: 0;
+				right: -8rpx;
+				padding: 2px 8px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background-color: #FFFFFF;
+			}
+.my-top{
+	position: relative;
+	width: 100%;
+	height: 420rpx;
+	/* #ifdef APP-PLUS */
+	height: 460rpx;
+	/* #endif */
+	height: 520rpx;
+	border-radius: 0 0 50% 50% / 0% 0% 15% 15%;
+	overflow: hidden;
+	.my-card{
+		position: absolute;
+		bottom: -70rpx;
+		width: 70vw;
+		height: 70rpx;
+		border-top-left-radius: 7px;
+		border-top-right-radius: 7px;
+		left: 50%;
+		transform: translateX(-50%);
+		background-color: orange;
+		transition: 1s all;
+		.bg-card{
+			position: relative;
+			width: 100%;
+			border-top-left-radius: 7px;
+			border-top-right-radius: 7px;
+			height: 100%;
+		}
+		.label-name{
+			position: relative;
+			margin-top: -65rpx;
+			width: 95%;
+			margin-left: 2.5%;
+			height: 40rpx;
+			display: flex;
+			justify-content: flex-start;
+		}
+		
+	}
+	
+	.head{
+		position: fixed;
+		left: 0;
+		top: 0;
+		z-index: 100;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		height: 100rpx;
+		/* #ifdef APP-PLUS */
+		height: calc(100rpx + var(--status-bar-height));
+		padding-top: var(--status-bar-height);
+		/* #endif */
+		/* #ifdef MP */
+		height: calc(200rpx + var(--status-bar-height));
+		padding-top: calc(100rpx + var(--status-bar-height));
+		/* #endif */
+		background-color: rgba(255,255,255,0);
+		// transition: all 1s;
+		.portrait{
+			display: flex;
+			width: 60rpx;
+			height: 60rpx;
+			margin-left: 20rpx;
+			position: relative;
+			image{
+				width: 100%;
+				height: 100%;
+				border-radius: 100%;
+			}
+			
+		}
+		.title{
+			display: flex;
+			align-items: center;
+			text{
+				color: #212121;
+				font-size: 28rpx;
+			}
+		}
+		.setting-mess{
+			display: flex;
+			align-items: center;
+			height: 100%;
+			margin-right: 20rpx;
+			.setting{
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 80rpx;
+				height: 100%;
+				text{
+					color: #FFFFFF;
+					font-size: 38rpx;
+				}
+			}
+			.mess{
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 80rpx;
+				height: 100%;
+				text{
+					color: #FFFFFF;
+					font-size: 38rpx;
+				}
+			}
+		}
+	}
+	.cu-list .grid .no-border{
+		margin: 20rpx auto;
+	}
+	/* 用户信息 */
+	.user-info{
+		display: flex;
+		align-items: center;
+		padding: 0 5%;
+		height: 120rpx;
+		margin-top: 100rpx;
+		/* #ifdef APP-PLUS */
+		margin-top: 130rpx;
+		/* #endif */
+		/* #ifdef MP */
+		margin-top: 200rpx;
+		/* #endif */
+		.mystore{
+			width: 150rpx;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		
+		.portrait{
+			position: relative;
+			width: 120rpx;
+			height: 120rpx;
+			margin-right: 20rpx;
+			box-sizing: border-box;
+			image{
+				width: 100%;
+				height: 100%;
+				border-radius: 100%;
+				border: 4rpx solid #FFFFFF;
+				
+				background-color: #FFFFFF;
+				box-sizing: border-box;
+			}
+			.userLevel{
+				position: absolute;
+				bottom: 0;
+				right: -8rpx;
+				padding: 2px 8px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background-color: #FFFFFF;
+			}
+		}
+		.info{
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			width: 55%;
+			height: 100%;
+			.nickname{
+				width: 100%;
+				padding: 10rpx 0;
+				image{
+					width: 24rpx;
+					height: 24rpx;
+				}
+				text{
+					margin-left: 10rpx;
+				}
+				text{
+					color: #FFFFFF;
+					font-size: 48rpx;
+				}
+			}
+			.rank{
+				display: flex;
+				align-items: center;
+				min-width: 230px;
+				width: 230px;
+				max-width: 230px;
+				height: 30rpx;
+				padding: 0 10rpx;
+				border-radius: 30rpx;
+				.cu-progress{
+					padding-right: 10rpx;
+					height: 5px;
+					min-width: 100px;
+					width: 100px;
+					max-width: 100px;
+				}
+				.grow{
+					padding: 3px 6px;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					.text-white{
+						font-size: 16rpx;
+						color: rgba(253, 141, 75, 1.0);
+					}
+				}
+			}
+		}
+	}
+	/* 关注区 */
+	.focus-area{
+		display: flex;
+		align-items: center;
+		width: 100%;
+		height: 120rpx;
+		.list{
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			flex:1;
+			height: 100%;
+			.num{
+				display: flex;
+				align-items: center;
+				text{
+					color: #F0F0F0;
+					font-size: 32rpx;
+					font-weight: bold;
+				}
+			}
+			.title{
+				display: flex;
+				align-items: center;
+				margin-top: 5rpx;
+				text{
+					color: #FFFFFF;
+					font-size: 24rpx;
+				}
+			}
+		}
+	}
+}

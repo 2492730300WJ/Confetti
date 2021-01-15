@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "w-input": "/components/watch-input",
+    "w-button": "/components/watch-button"
+  }
+}

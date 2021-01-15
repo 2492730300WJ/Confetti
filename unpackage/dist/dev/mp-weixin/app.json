@@ -1,0 +1,73 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/index/login",
+    "pages/home/home",
+    "pages/home/myCard",
+    "pages/basics/home",
+    "pages/basics/layout",
+    "pages/basics/background",
+    "pages/basics/text",
+    "pages/basics/icon",
+    "pages/basics/button",
+    "pages/basics/design",
+    "pages/basics/tag",
+    "pages/basics/avatar",
+    "pages/basics/progress",
+    "pages/basics/shadow",
+    "pages/basics/loading",
+    "pages/component/home",
+    "pages/component/bar",
+    "pages/component/nav",
+    "pages/component/list",
+    "pages/component/card",
+    "pages/component/form",
+    "pages/component/timeline",
+    "pages/component/chat",
+    "pages/component/swiper",
+    "pages/component/modal",
+    "pages/component/steps"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarBackgroundColor": "#0081ff",
+    "navigationBarTitleText": "Confetti",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#333",
+    "selectedColor": "#00bfff",
+    "backgroundColor": "#eee",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "./static/tabbar/index.png",
+        "selectedIconPath": "static/tabbar/indexed.png"
+      },
+      {
+        "pagePath": "pages/basics/home",
+        "text": "111",
+        "iconPath": "./static/tabbar/index.png",
+        "selectedIconPath": "static/tabbar/indexed.png"
+      },
+      {
+        "pagePath": "pages/component/home",
+        "text": "111",
+        "iconPath": "./static/tabbar/index.png",
+        "selectedIconPath": "static/tabbar/indexed.png"
+      },
+      {
+        "pagePath": "pages/home/home",
+        "text": "我的",
+        "iconPath": "static/tabbar/my.png",
+        "selectedIconPath": "static/tabbar/myed.png"
+      }
+    ]
+  },
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom"
+  }
+}
