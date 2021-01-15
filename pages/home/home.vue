@@ -127,6 +127,7 @@
 								that.user.fans = this.formatNumber(res.data.data.user.fans);
 								that.user.hot = this.formatNumber(res.data.data.user.hot);
 								that.user.avatar = res.data.data.user.avatar;
+								uni.setStorageSync('avatar', res.data.data.user.avatar);
 								that.isLogin = true;
 								that.isShowCard = true;
 								that.$forceUpdate();
@@ -138,6 +139,8 @@
 								});
 								this.isLogin = false;
 								this.isShowCard = false;
+								uni.setStorageSync('login', false)
+								uni.setStorageSync('avatar', null);
 								return;
 							}
 						}

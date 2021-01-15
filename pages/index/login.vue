@@ -176,6 +176,8 @@
 							uni.setStorageSync('refreshToken', res.data.data.refreshToken);
 							uni.setStorageSync('token', res.data.data.token);
 							uni.setStorageSync('userId', res.data.data.user.userId);
+							uni.setStorageSync('avatar', res.data.data.user.avatar);
+							uni.setStorageSync('login', true)
 							uni.showToast({
 								title:"登陆成功~",
 								icon:"none",

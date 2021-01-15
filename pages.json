@@ -22,6 +22,18 @@
 			"style": {}
 		},
 		{
+			"path": "pages/game/guess2/index",
+			"style": {}
+		},
+		{
+			"path": "pages/game/guess2/checkpoint",
+			"style": {}
+		},
+		{
+			"path": "pages/game/guess2/game",
+			"style": {}
+		},
+		{
 			"path": "pages/basics/home",
 			"style": {}
 		},
@@ -113,7 +125,7 @@
 			"path": "pages/component/steps",
 			"style": {}
 		}
-	],
+    ],
 	"globalStyle": {
 		"mp-alipay": {
 			/* 支付宝小程序特有相关 */
