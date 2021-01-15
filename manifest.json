@@ -12,7 +12,7 @@
             "Statistic" : {}
         },
         "statusbar" : {
-            "immersed" : false
+            "immersed" : true
         },
         /* 模块配置 */
         "distribute" : {

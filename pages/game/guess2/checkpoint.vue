@@ -1,13 +1,9 @@
 <template>
 	<view style="background-color: #FED03B;">
-		<view class="cu-bar" style="z-index: 99;">
-			<view class="action" @click="Back">
-				<text class="cuIcon-back text-gray" style="color: #FFFFFF;">返回</text>
-			</view>
-			<view class="content text-bold" style="color: #FFFFFF;">
-				选 择 关 卡
-			</view>
-		</view>
+		<cu-custom :isBack="true" style="color: #FFFFFF;">
+			<block slot="backText">返回</block>
+			<block slot="content">选 择 关 卡</block>
+		</cu-custom>
 		<view class="checkpointList">
 			<view class="itemView" v-for="index in appData.length" :key="index" @tap="navigator(index)">
 				<view class="item unlock" v-if="index<=unlock">

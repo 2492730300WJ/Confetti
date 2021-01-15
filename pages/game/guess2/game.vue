@@ -1,13 +1,9 @@
 <template>
 	<view class="game">
-		<view class="cu-bar" style="z-index: 99;">
-			<view class="action" @click="Back">
-				<text class="cuIcon-back text-gray" style="color: #FFFFFF;">返回</text> 
-			</view>
-			<view class="content text-bold" style="color: #FFFFFF;">
-				{{'第'+(Number(this.proBlemIndex))+'关'}}
-			</view>
-		</view>
+		<cu-custom :isBack="true" style="color: #FFFFFF;">
+			<block slot="backText">返回</block>
+			<block slot="content">{{'第'+(Number(this.proBlemIndex))+'关'}}</block>
+		</cu-custom>
 		<view class="problemBox">
 			<view class="oldman">
 				<image src="./static/laotou.png" class="img" mode="widthFix"></image>

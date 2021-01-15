@@ -1,13 +1,9 @@
 <template>
 	<view class="content" style="background-color: #FED03B;height: 100vh;">
-		<view class="cu-bar" style="z-index: 99;">
-			<view class="action" @click="Back">
-				<text class="cuIcon-back text-gray" style="color: #FFFFFF;">返回</text> 
-			</view>
-			<view class="content text-bold" style="color: #FFFFFF;">
-				看 图 猜 成 语
-			</view>
-		</view>
+		<cu-custom :isBack="true" style="color: #FFFFFF;">
+			<block slot="backText">返回</block>
+			<block slot="content">看图猜成语</block>
+		</cu-custom>
 		<view class="logo">
 				<image class="img" src="./static/logo.png" mode="widthFix"/>
 		</view>

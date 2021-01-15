@@ -34,6 +34,14 @@
 			"style": {}
 		},
 		{
+			"path": "pages/chat/index",
+			"style": {}
+		},
+		{
+			"path": "pages/chat/chat",
+			"style": {}
+		},
+		{
 			"path": "pages/basics/home",
 			"style": {}
 		},
@@ -161,10 +169,16 @@
 				"selectedIconPath": "static/tabbar/indexed.png"
 			},
 			{
+				"pagePath": "pages/chat/index",
+				"text": "聊天",
+				"iconPath": "./static/tabbar/chat.png",
+				"selectedIconPath": "static/tabbar/chated.png"
+			},
+			{
 				"pagePath": "pages/game/index",
 				"text": "游戏",
-				"iconPath": "./static/tabbar/index.png",
-				"selectedIconPath": "static/tabbar/indexed.png"
+				"iconPath": "./static/tabbar/game.png",
+				"selectedIconPath": "static/tabbar/gameed.png"
 			},
 			{
 				"pagePath": "pages/home/home",
