@@ -2,6 +2,87 @@
 	import Vue from 'vue'
 	export default {
 		onLaunch: function() {
+
+			// #ifdef APP-PLUS  
+			// 关闭启动图
+			switch (uni.getSystemInfoSync().platform) {
+				case 'android':
+					plus.navigator.closeSplashscreen();
+					break;
+				case 'ios':
+					plus.navigator.closeSplashscreen();
+					break;
+				default:
+					break;
+			}
+			plus.runtime.getProperty(plus.runtime.appid, function(widgetInfo) {
+				uni.request({
+					url: 'http://47.102.121.70:9999/api/app/update',
+					header: {
+						'content-type': 'application/json; charset=UTF-8', //自定义请求头信息
+					},
+					method: 'POST',
+					data: {
+						version: widgetInfo.version
+					},
+					success: (result) => {
+						var data = result.data.data.versionStatus;
+						// 整包更新 
+						if (data.status == 2) {
+							uni.showModal({ //提醒用户更新  
+								title: "更新提示",
+								content: "有新版本更新啦~，点击确定按钮立即更新",
+								success: (res) => {
+									if (res.confirm) {
+										plus.runtime.openURL(data.pkgUrl);
+									}
+								}
+							})
+						}
+
+						// 热更新
+						if (data.status == 1) {
+							uni.showModal({ //提醒用户更新
+								title: "更新提示",
+								content: "有新版本更新啦~，点击确定按钮立即更新，更新完成后将自动重启~~~",
+								success: (res) => {
+									if (res.confirm) {
+										uni.showLoading({
+											title: '更新中，请稍后'
+										});
+										uni.downloadFile({
+											url: data.wgtUrl,
+											success: (downloadResult) => {
+												uni.hideLoading();
+												if (downloadResult.statusCode === 200) {
+													plus.runtime.install(downloadResult.tempFilePath, {
+														force: false
+													}, function() {
+														console.log('install success...');
+														plus.runtime.restart();
+													}, function(e) {
+														console.error('install fail...');
+													});
+												} else {
+													plus.nativeUI.toast("更新失败", {
+														duration: 'long',
+														richTextStyle: {
+															align: 'center'
+														}
+													});
+												}
+											}
+										});
+									}
+								}
+							})
+						}
+					}
+				});
+			})
+			// #endif
+
+
 			uni.getSystemInfo({
 				success: function(e) {
 					// #ifndef MP

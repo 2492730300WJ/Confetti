@@ -21,16 +21,16 @@
 					<view class="cu-avatar round xl" :style="{backgroundImage:'url('+user.avatar+')'}"></view>
 				</view>
 				<view class="nickname">
-					<text class="text-white text-bold" style="font-size: 45rpx;">{{user.nickname}}</text>
+					<text class="text-white text-bold" style="font-size: 45rpx;">{{user.userName}}</text>
 				</view>
 				<view class="nickname margin-top">
 					<text class="text-white text-bold" style="font-size: 30rpx;">{{user.description}}</text>
 				</view>
-				<view class="follow-msg marginTop">
+				<!-- 	<view class="follow-msg marginTop">
 					<view class="btn-view follow round">关注</view>
 					<view style="width: 20px;"></view>
 					<view class="btn-view msg round" @tap="hrefChat">私信</view>
-				</view>
+				</view> -->
 			</view>
 		</view>
 	</view>
@@ -41,22 +41,47 @@
 		data() {
 			return {
 				user: {
-					nickname: "haha",
-					follow: '11.2k',
-					fans: 100,
-					hot: 20,
-					avatar: '../../static/img/initAvatar.jpg',
-					description: '一个神经病，无聊的神经病'
+
 				}
 			}
 		},
 		onLoad(option) {
+			this.initCard()
 		},
 		methods: {
-			hrefChat() {
-				uni.navigateTo({
-					url: "chatRoom"
-				})
+			initCard() {
+				var that = this;
+				uni.request({
+					url: that.$Url + '/user/info', //请求接口
+					header: {
+						'content-type': 'application/json; charset=UTF-8', //自定义请求头信息
+						'refreshToken': uni.getStorageSync("refreshToken"),
+						'token': uni.getStorageSync("token"),
+					},
+					method: 'POST',
+					data: {
+						userId: uni.getStorageSync("userId")
+					},
+					success: (res) => { //请求成功后返回
+						console.log(res)
+						if (res.data.code == 200) {
+							that.user = res.data.data.user;
+							that.user.follow = this.formatNumber(res.data.data.user.follow);
+							that.user.fans = this.formatNumber(res.data.data.user.fans);
+							that.user.hot = this.formatNumber(res.data.data.user.hot);
+							that.$forceUpdate();
+						} else {
+							uni.showToast({
+								icon: 'none',
+								position: 'bottom',
+								title: '请求失败'
+							});
+						}
+					}
+				});
+			},
+			formatNumber(num) {
+				return num >= 1e4 && num < 1e8 ? (num / 1e4).toFixed(1) + '万' : num >= 1e8 ? (num / 1e8).toFixed(1) + '亿' : num
 			}
 		}
 	}

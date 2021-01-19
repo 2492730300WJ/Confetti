@@ -24,7 +24,6 @@ $assist-clor:"#FFFFFF";
 $change-clor:"#8DC63F";
 $price-clor:"#E54D42";
 .bg-topic-theme {
-    background-color: #6739B6;
     color: #333333;
 }
 .userLevel{
@@ -40,12 +39,8 @@ $price-clor:"#E54D42";
 .my-top{
 	position: relative;
 	width: 100%;
-	height: 420rpx;
-	/* #ifdef APP-PLUS */
-	height: 460rpx;
-	/* #endif */
-	height: 520rpx;
-	border-radius: 0 0 50% 50% / 0% 0% 15% 15%;
+	height: 440rpx;
+	// border-radius: 0 0 50% 50% / 0% 0% 15% 15%;
 	overflow: hidden;
 	.my-card{
 		position: absolute;

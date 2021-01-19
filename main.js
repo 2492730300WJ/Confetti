@@ -3,7 +3,8 @@ import App from './App'
 
 import cuCustom from './colorui/components/cu-custom.vue'
 Vue.component('cu-custom',cuCustom)
-
+import cuCustomNofixed from './colorui/components/cu-custom-nofixed.vue'
+Vue.component('cu-custom-nofixed',cuCustomNofixed)
 Vue.config.productionTip = false
 
 App.mpType = 'app'

@@ -1,12 +1,12 @@
 <template>
 	<view style="background-color: #FED03B;">
-		<cu-custom :isBack="true" style="color: #FFFFFF;">
+		<cu-custom-nofixed :isBack="true" style="color: #FFFFFF;">
 			<block slot="backText">返回</block>
 			<block slot="content">选 择 关 卡</block>
-		</cu-custom>
+		</cu-custom-nofixed>
 		<view class="checkpointList">
 			<view class="itemView" v-for="index in appData.length" :key="index" @tap="navigator(index)">
-				<view class="item unlock" v-if="index<=unlock">
+				<view class="item unlock" v-if="(index-1)<=unlock">
 					<text>{{index}}</text>
 				</view>
 				<view class="item" v-else>
@@ -31,8 +31,8 @@
 		onShow() {
 			let index = uni.getStorageSync('checkpint')
 			if (!index) {
-				uni.setStorageSync('checkpint', 1)
-				index = 1
+				uni.setStorageSync('checkpint', 0)
+				index = 0
 			}
 			this.unlock = index
 			console.log(this.unlock)
@@ -45,7 +45,8 @@
 			},
 			navigator(index) {
 				audioContext.play();
-				if (index <= this.unlock) {
+				console.log(index)
+				if ((index-1) <= this.unlock) {
 					uni.navigateTo({
 						url: "/pages/game/guess2/game?index=" + index
 					})

@@ -1,12 +1,12 @@
 <template>
 	<view>
 		<view :style="[{height:CustomBar + 'px'}]">
-			<view class="cu-bar bg-gradual-pink" :style="style">
+			<view class="cu-bar bg-gradual-pink fixed" :style="style">
 				<view class="cu-avatar round" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg);"></view>
-				<view class="content">
+				<view class="content" :style="[{top:StatusBar + 'px'}]">
 					消息列表
 				</view>
-				<view class="action">
+				<view class="action" :style="[{top:StatusBar + 'px'}]">
 					<text>好友列表</text>
 				</view>
 			</view>
@@ -373,7 +373,6 @@
 	page {
 		background-image: var(--gradualBlue);
 		width: 100vw;
-		overflow: hidden;
 	}
 	.switch-sex::after {
 		content: "\e716";

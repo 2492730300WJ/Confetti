@@ -18,6 +18,10 @@
 			"style": {}
 		},
 		{
+			"path": "pages/home/view/info",
+			"style": {}
+		},
+		{
 			"path": "pages/game/index",
 			"style": {}
 		},
@@ -148,7 +152,7 @@
 	"tabBar": {
 		"color": "#333",
 		"selectedColor": "#00bfff",
-		"backgroundColor": "#eee",
+		"backgroundColor": "#FFFFFF",
 		"borderStyle": "black",
 		"list": [{
 				"pagePath": "pages/index/index",

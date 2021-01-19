@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view :style="[{height:CustomBar + 'px'}]">
-			<view class="cu-bar search bg-gradual-pink" :style="style">
+			<view class="cu-bar search bg-gradual-pink fixed" :style="style">
 				<view class="cu-avatar round" :style="{ backgroundImage:'url(' + (!isLogin?'../../static/img/noLoginAvatar.png':avatar) + ')' }"></view>
 				<view class="search-form radius">
 					<text class="cuIcon-search"></text>

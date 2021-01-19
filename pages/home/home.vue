@@ -1,12 +1,12 @@
 <template>
 	<view class="page" :style="!isLogin?'background-color:#F6F6F6':''">
-		<view class="my-top bg-topic-theme">
+		<view class="my-top bg-topic-theme bg-gradual-pink radius shadow">
 			<!-- head -->
-			<view class="user-info" @click="onUserInfo">
-				<view class="cu-avatar round xl margin-left margin-right" :style="{ backgroundImage:'url(' + (!isLogin?'../../static/img/noLoginAvatar.png':user.avatar) + ')' }">
+			<view class="user-info">
+				<view @click="onUserInfo" class="cu-avatar round xl margin-left margin-right" :style="{ backgroundImage:'url(' + (!isLogin?'../../static/img/noLoginAvatar.png':user.avatar) + ')' }">
 					<view v-if="isLogin" class="cu-tag badge" :class="1%2==0?'cuIcon-female bg-pink':'cuIcon-male bg-blue'"></view>
 					<view v-if="isLogin" class="userLevel round shadow">
-						<text class="text-yellow text-Abc text-sm">Lv {{user.leavel}}</text>
+						<text class="text-yellow text-Abc text-sm">Lv {{user.level}}</text>
 					</view>
 				</view>
 				<view v-if="!isLogin" class="info" @tap="hrefLogin">
@@ -14,11 +14,11 @@
 				</view>
 				<view v-if="isLogin" class="info">
 					<view class="nickname">
-						<text>{{user.nickname}}</text>
+						<text>{{user.userName}}</text>
 					</view>
 					<view class="rank">
 						<view class="cu-progress round ">
-							<view class="bg-olive" :style="[{ width:progressWidth}]"></view>
+							<view class="bg-olive" :style="[{ width:user.progressWidth}]"></view>
 						</view>
 						<view class="grow round marginLeft">
 							<text class="text-white text-xs">成长值</text>
@@ -72,6 +72,19 @@
 		<view v-if="!isLogin" class="noLogin-text" @tap="hrefLogin">
 			<text class="text-gray text-lg">请先登陆~</text>
 		</view>
+
+		<view v-if="isLogin">
+			<view class="cu-list grid margin-top margin-left margin-right radius shadow" :class="['col-' + gridCol,gridBorder?'':'no-border']">
+				<view class="cu-item" v-for="(item,index) in cuIconList" :key="index" v-if="index<gridCol*2">
+					<view :class="['cuIcon-' + item.cuIcon,'text-' + item.color]">
+						<view class="cu-tag badge" v-if="item.badge!=0">
+							<block v-if="item.badge!=1">{{item.badge>99?'99+':item.badge}}</block>
+						</view>
+					</view>
+					<text>{{item.name}}</text>
+				</view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -84,13 +97,62 @@
 		data() {
 			return {
 				scrollTop: 0,
-				progressWidth: "15%",
 				isLogin: false,
 				isShowCard: false,
-				user: {
-					grow: 854,
-					leavel: 96
-				}
+				user: {},
+				cuIconList: [{
+					cuIcon: 'cardboardfill',
+					color: 'red',
+					badge: 120,
+					name: 'VR'
+				}, {
+					cuIcon: 'recordfill',
+					color: 'orange',
+					badge: 1,
+					name: '录像'
+				}, {
+					cuIcon: 'picfill',
+					color: 'yellow',
+					badge: 0,
+					name: '图像'
+				}, {
+					cuIcon: 'noticefill',
+					color: 'olive',
+					badge: 22,
+					name: '通知'
+				}, {
+					cuIcon: 'upstagefill',
+					color: 'cyan',
+					badge: 0,
+					name: '排行榜'
+				}, {
+					cuIcon: 'clothesfill',
+					color: 'blue',
+					badge: 0,
+					name: '皮肤'
+				}, {
+					cuIcon: 'discoverfill',
+					color: 'purple',
+					badge: 0,
+					name: '发现'
+				}, {
+					cuIcon: 'questionfill',
+					color: 'mauve',
+					badge: 0,
+					name: '帮助'
+				}, {
+					cuIcon: 'commandfill',
+					color: 'purple',
+					badge: 0,
+					name: '问答'
+				}, {
+					cuIcon: 'brandfill',
+					color: 'mauve',
+					badge: 0,
+					name: '版权'
+				}],
+				gridCol: 5,
+				gridBorder: false,
 			}
 		},
 		onShow() {
@@ -122,11 +184,10 @@
 						success: (res) => { //请求成功后返回
 							console.log(res)
 							if (res.data.code == 200) {
-								that.user.nickname = res.data.data.user.userName;
+								that.user = res.data.data.user;
 								that.user.follow = this.formatNumber(res.data.data.user.follow);
 								that.user.fans = this.formatNumber(res.data.data.user.fans);
 								that.user.hot = this.formatNumber(res.data.data.user.hot);
-								that.user.avatar = res.data.data.user.avatar;
 								uni.setStorageSync('avatar', res.data.data.user.avatar);
 								that.isLogin = true;
 								that.isShowCard = true;
@@ -149,7 +210,7 @@
 
 			},
 			formatNumber(num) {
-			    return num >= 1e4 && num < 1e8 ? (num / 1e4).toFixed(1) + '万' : num >= 1e8 ? (num / 1e8).toFixed(1) + '亿' : num
+				return num >= 1e4 && num < 1e8 ? (num / 1e4).toFixed(1) + '万' : num >= 1e8 ? (num / 1e8).toFixed(1) + '亿' : num
 			},
 			showCard() {
 				uni.navigateTo({
@@ -174,7 +235,13 @@
 			/**
 			 * 用户信息点击
 			 */
-			onUserInfo() {},
+			onUserInfo() {
+				if (this.isLogin) {
+					uni.navigateTo({
+						url: '/pages/home/view/info'
+					})
+				}
+			},
 			//登陆
 			hrefLogin() {
 				uni.navigateTo({

@@ -2,7 +2,7 @@
 	<view class="game">
 		<cu-custom :isBack="true" style="color: #FFFFFF;">
 			<block slot="backText">返回</block>
-			<block slot="content">{{'第'+(Number(this.proBlemIndex))+'关'}}</block>
+			<block slot="content">{{'第'+(Number(this.proBlemIndex + 1))+'关'}}</block>
 		</cu-custom>
 		<view class="problemBox">
 			<view class="oldman">
@@ -70,7 +70,7 @@
 			};
 		},
 		onLoad({index}) {
-			this.proBlemIndex = index
+			this.proBlemIndex = index - 1 
 		},
 		onShow() {
 			this.parsingData()

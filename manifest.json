@@ -2,8 +2,8 @@
     "name" : "Confetti",
     "appid" : "__UNI__EB85833",
     "description" : "",
-    "versionName" : "ColorUi for UniApp 2.1.4",
-    "versionCode" : 214,
+    "versionName" : "1.0.01",
+    "versionCode" : 1001,
     "transformPx" : false,
     "app-plus" : {
         /* 5+App特有相关 */

@@ -33,6 +33,8 @@
 				PageCur: 'basics'
 			}
 		},
+		onLoad() {
+		},
 		methods: {
 			NavChange: function(e) {
 				this.PageCur = e.currentTarget.dataset.cur
