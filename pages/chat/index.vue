@@ -1,8 +1,8 @@
 <template>
 	<view>
 		<view :style="[{height:CustomBar + 'px'}]">
-			<view class="cu-bar bg-gradual-pink fixed" :style="style">
-				<view class="cu-avatar round" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg);"></view>
+			<view class="cu-bar fixed" :style="style" :class="this.$Color">
+				<view class="cu-avatar round" :style="{ backgroundImage:'url(' + (!isLogin?'../../static/img/noLoginAvatar.png':avatar) + ')' }"></view>
 				<view class="content" :style="[{top:StatusBar + 'px'}]">
 					消息列表
 				</view>
@@ -13,88 +13,16 @@
 		</view>
 		<!-- 消息列表 -->
 		<view class="cu-list menu-avatar">
-			<view class="cu-item" @click="ListClick" :class="modalName=='move-box-'+ index?'move-cur':''" @touchstart="ListTouchStart" @touchmove="ListTouchMove" @touchend="ListTouchEnd" :data-target="'move-box-' + index">
-				<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg);"></view>
-				<view class="content">
-					<view class="text-grey">凯尔</view>
-					<view class="text-gray text-sm flex">
-						<view class="text-cut">
-							<text class="cuIcon-infofill text-red  margin-right-xs"></text>
-							我已天理为凭，踏入这片荒芜，不再受凡人的枷锁遏制。我已天理为凭，踏入这片荒芜，不再受凡人的枷锁遏制。
-						</view>
-					</view>
-				</view>
-				<view class="action">
-					<view class="text-grey text-xs">22:20</view>
-					<view class="cu-tag round bg-grey sm">5</view>
-				</view>
-				<view class="move">
-					<view class="bg-grey">置顶</view>
-					<view class="bg-red">删除</view>
-				</view>
-			</view>
-			<view class="cu-item">
-				<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Taric.png);">
-					<view class="cu-tag badge">99+</view>
-				</view>
-				<view class="content">
-					<view class="text-grey">
-						<view class="text-cut">瓦洛兰之盾-塔里克</view>
-						<view class="cu-tag round bg-orange sm">战士</view>
-					</view>
-					<view class="text-gray text-sm flex">
-						<view class="text-cut">
-							塔里克是保护者星灵，用超乎寻常的力量守护着符文之地的生命、仁爱以及万物之美。塔里克由于渎职而被放逐，离开了祖国德玛西亚，前去攀登巨神峰寻找救赎，但他找到的却是来自星界的更高层的召唤。现在的塔里克与古代巨神族的神力相融合，以瓦洛兰之盾的身份，永不疲倦地警惕着阴险狡诈的虚空腐化之力。
-						</view>
-					</view>
-				</view>
-				<view class="action">
-					<view class="text-grey text-xs">22:20</view>
-					<view class="cuIcon-notice_forbid_fill text-gray"></view>
-				</view>
-			</view>
-			<view class="cu-item ">
-				<view class="cu-avatar radius lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Morgana.png);"></view>
-				<view class="content">
-					<view class="text-pink">
-						<view class="text-cut">莫甘娜</view>
-					</view>
-					<view class="text-gray text-sm flex">
-						<view class="text-cut">凯尔，你被自己的光芒变的盲目！</view>
-					</view>
-				</view>
-				<view class="action">
-					<view class="text-grey text-xs">22:20</view>
-					<view class="cu-tag round bg-red sm">5</view>
-				</view>
-			</view>
-			<view class="cu-item grayscale">
-				<view class="cu-avatar radius lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big81007.jpg);"></view>
-				<view class="content">
-					<view>
-						<view class="text-cut">伊泽瑞尔</view>
-						<view class="cu-tag round bg-orange sm">断开连接...</view>
-					</view>
-					<view class="text-gray text-sm flex">
-						<view class="text-cut"> 等我回来一个打十个</view>
-					</view>
-				</view>
-				<view class="action">
-					<view class="text-grey text-xs">22:20</view>
-					<view class="cu-tag round bg-red sm">5</view>
-				</view>
-			</view>
-			<view class="cu-item cur">
-				<view class="cu-avatar radius lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big81020.jpg);">
+			<view class="cu-item cur" @click="ListClick(item)" v-for="(item, key) in friends" :key="key" :id="item.friendId">
+				<view class="cu-avatar radius lg" :style="'background-image:url(' + item.avatar +  ');'">
 					<view class="cu-tag badge"></view>
 				</view>
 				<view class="content">
 					<view>
-						<view class="text-cut">瓦罗兰大陆-睡衣守护者-新手保护营</view>
-						<view class="cu-tag round bg-orange sm">6人</view>
+						<view class="text-cut">{{item.friendName}}</view>
 					</view>
 					<view class="text-gray text-sm flex">
-						<view class="text-cut"> 伊泽瑞尔：<text class="cuIcon-locationfill text-orange margin-right-xs"></text> 传送中...</view>
+						<view class="text-cut"></view>
 					</view>
 				</view>
 				<view class="action">
@@ -102,223 +30,25 @@
 					<view class="cuIcon-notice_forbid_fill text-gray"></view>
 				</view>
 			</view>
-			<view class="cu-item">
-				<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Taric.png);">
-					<view class="cu-tag badge">99+</view>
-				</view>
-				<view class="content">
-					<view class="text-grey">
-						<view class="text-cut">瓦洛兰之盾-塔里克</view>
-						<view class="cu-tag round bg-orange sm">战士</view>
-					</view>
-					<view class="text-gray text-sm flex">
-						<view class="text-cut">
-							塔里克是保护者星灵，用超乎寻常的力量守护着符文之地的生命、仁爱以及万物之美。塔里克由于渎职而被放逐，离开了祖国德玛西亚，前去攀登巨神峰寻找救赎，但他找到的却是来自星界的更高层的召唤。现在的塔里克与古代巨神族的神力相融合，以瓦洛兰之盾的身份，永不疲倦地警惕着阴险狡诈的虚空腐化之力。
-						</view>
-					</view>
-				</view>
-				<view class="action">
-					<view class="text-grey text-xs">22:20</view>
-					<view class="cuIcon-notice_forbid_fill text-gray"></view>
-				</view>
+		</view>
+		<view style="height: 90px;text-align: center;" class="text-cut text-grey">
+		</view>
+		<view class="cu-bar tabbar bg-white margin-top-xl foot">
+			<view class="action text-gray" @click="toIndex">
+				<view class="cuIcon-homefill"></view> 首页
 			</view>
-			<view class="cu-item">
-				<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Taric.png);">
-					<view class="cu-tag badge">99+</view>
-				</view>
-				<view class="content">
-					<view class="text-grey">
-						<view class="text-cut">瓦洛兰之盾-塔里克</view>
-						<view class="cu-tag round bg-orange sm">战士</view>
-					</view>
-					<view class="text-gray text-sm flex">
-						<view class="text-cut">
-							塔里克是保护者星灵，用超乎寻常的力量守护着符文之地的生命、仁爱以及万物之美。塔里克由于渎职而被放逐，离开了祖国德玛西亚，前去攀登巨神峰寻找救赎，但他找到的却是来自星界的更高层的召唤。现在的塔里克与古代巨神族的神力相融合，以瓦洛兰之盾的身份，永不疲倦地警惕着阴险狡诈的虚空腐化之力。
-						</view>
-					</view>
-				</view>
-				<view class="action">
-					<view class="text-grey text-xs">22:20</view>
-					<view class="cuIcon-notice_forbid_fill text-gray"></view>
-				</view>
+			<view class="action" :class="this.$BarColor">
+				<view class="cuIcon-weixin"></view>聊天
 			</view>
-			<view class="cu-item">
-				<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Taric.png);">
-					<view class="cu-tag badge">99+</view>
-				</view>
-				<view class="content">
-					<view class="text-grey">
-						<view class="text-cut">瓦洛兰之盾-塔里克</view>
-						<view class="cu-tag round bg-orange sm">战士</view>
-					</view>
-					<view class="text-gray text-sm flex">
-						<view class="text-cut">
-							塔里克是保护者星灵，用超乎寻常的力量守护着符文之地的生命、仁爱以及万物之美。塔里克由于渎职而被放逐，离开了祖国德玛西亚，前去攀登巨神峰寻找救赎，但他找到的却是来自星界的更高层的召唤。现在的塔里克与古代巨神族的神力相融合，以瓦洛兰之盾的身份，永不疲倦地警惕着阴险狡诈的虚空腐化之力。
-						</view>
-					</view>
-				</view>
-				<view class="action">
-					<view class="text-grey text-xs">22:20</view>
-					<view class="cuIcon-notice_forbid_fill text-gray"></view>
-				</view>
+			<view class="action text-gray add-action">
+				<button class="cu-btn cuIcon-add shadow" :class="this.$Color"></button>
+				发布
 			</view>
-			<view class="cu-item">
-				<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Taric.png);">
-					<view class="cu-tag badge">99+</view>
-				</view>
-				<view class="content">
-					<view class="text-grey">
-						<view class="text-cut">瓦洛兰之盾-塔里克</view>
-						<view class="cu-tag round bg-orange sm">战士</view>
-					</view>
-					<view class="text-gray text-sm flex">
-						<view class="text-cut">
-							塔里克是保护者星灵，用超乎寻常的力量守护着符文之地的生命、仁爱以及万物之美。塔里克由于渎职而被放逐，离开了祖国德玛西亚，前去攀登巨神峰寻找救赎，但他找到的却是来自星界的更高层的召唤。现在的塔里克与古代巨神族的神力相融合，以瓦洛兰之盾的身份，永不疲倦地警惕着阴险狡诈的虚空腐化之力。
-						</view>
-					</view>
-				</view>
-				<view class="action">
-					<view class="text-grey text-xs">22:20</view>
-					<view class="cuIcon-notice_forbid_fill text-gray"></view>
-				</view>
+			<view class="action text-gray" @click="toGame">
+				<view class="cuIcon-game"></view>游戏
 			</view>
-			<view class="cu-item">
-				<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Taric.png);">
-					<view class="cu-tag badge">99+</view>
-				</view>
-				<view class="content">
-					<view class="text-grey">
-						<view class="text-cut">瓦洛兰之盾-塔里克</view>
-						<view class="cu-tag round bg-orange sm">战士</view>
-					</view>
-					<view class="text-gray text-sm flex">
-						<view class="text-cut">
-							塔里克是保护者星灵，用超乎寻常的力量守护着符文之地的生命、仁爱以及万物之美。塔里克由于渎职而被放逐，离开了祖国德玛西亚，前去攀登巨神峰寻找救赎，但他找到的却是来自星界的更高层的召唤。现在的塔里克与古代巨神族的神力相融合，以瓦洛兰之盾的身份，永不疲倦地警惕着阴险狡诈的虚空腐化之力。
-						</view>
-					</view>
-				</view>
-				<view class="action">
-					<view class="text-grey text-xs">22:20</view>
-					<view class="cuIcon-notice_forbid_fill text-gray"></view>
-				</view>
-			</view>
-			<view class="cu-item">
-				<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Taric.png);">
-					<view class="cu-tag badge">99+</view>
-				</view>
-				<view class="content">
-					<view class="text-grey">
-						<view class="text-cut">瓦洛兰之盾-塔里克</view>
-						<view class="cu-tag round bg-orange sm">战士</view>
-					</view>
-					<view class="text-gray text-sm flex">
-						<view class="text-cut">
-							塔里克是保护者星灵，用超乎寻常的力量守护着符文之地的生命、仁爱以及万物之美。塔里克由于渎职而被放逐，离开了祖国德玛西亚，前去攀登巨神峰寻找救赎，但他找到的却是来自星界的更高层的召唤。现在的塔里克与古代巨神族的神力相融合，以瓦洛兰之盾的身份，永不疲倦地警惕着阴险狡诈的虚空腐化之力。
-						</view>
-					</view>
-				</view>
-				<view class="action">
-					<view class="text-grey text-xs">22:20</view>
-					<view class="cuIcon-notice_forbid_fill text-gray"></view>
-				</view>
-			</view>
-			<view class="cu-item">
-				<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Taric.png);">
-					<view class="cu-tag badge">99+</view>
-				</view>
-				<view class="content">
-					<view class="text-grey">
-						<view class="text-cut">瓦洛兰之盾-塔里克</view>
-						<view class="cu-tag round bg-orange sm">战士</view>
-					</view>
-					<view class="text-gray text-sm flex">
-						<view class="text-cut">
-							塔里克是保护者星灵，用超乎寻常的力量守护着符文之地的生命、仁爱以及万物之美。塔里克由于渎职而被放逐，离开了祖国德玛西亚，前去攀登巨神峰寻找救赎，但他找到的却是来自星界的更高层的召唤。现在的塔里克与古代巨神族的神力相融合，以瓦洛兰之盾的身份，永不疲倦地警惕着阴险狡诈的虚空腐化之力。
-						</view>
-					</view>
-				</view>
-				<view class="action">
-					<view class="text-grey text-xs">22:20</view>
-					<view class="cuIcon-notice_forbid_fill text-gray"></view>
-				</view>
-			</view>
-			<view class="cu-item">
-				<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Taric.png);">
-					<view class="cu-tag badge">99+</view>
-				</view>
-				<view class="content">
-					<view class="text-grey">
-						<view class="text-cut">瓦洛兰之盾-塔里克</view>
-						<view class="cu-tag round bg-orange sm">战士</view>
-					</view>
-					<view class="text-gray text-sm flex">
-						<view class="text-cut">
-							塔里克是保护者星灵，用超乎寻常的力量守护着符文之地的生命、仁爱以及万物之美。塔里克由于渎职而被放逐，离开了祖国德玛西亚，前去攀登巨神峰寻找救赎，但他找到的却是来自星界的更高层的召唤。现在的塔里克与古代巨神族的神力相融合，以瓦洛兰之盾的身份，永不疲倦地警惕着阴险狡诈的虚空腐化之力。
-						</view>
-					</view>
-				</view>
-				<view class="action">
-					<view class="text-grey text-xs">22:20</view>
-					<view class="cuIcon-notice_forbid_fill text-gray"></view>
-				</view>
-			</view>
-			<view class="cu-item">
-				<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Taric.png);">
-					<view class="cu-tag badge">99+</view>
-				</view>
-				<view class="content">
-					<view class="text-grey">
-						<view class="text-cut">瓦洛兰之盾-塔里克</view>
-						<view class="cu-tag round bg-orange sm">战士</view>
-					</view>
-					<view class="text-gray text-sm flex">
-						<view class="text-cut">
-							塔里克是保护者星灵，用超乎寻常的力量守护着符文之地的生命、仁爱以及万物之美。塔里克由于渎职而被放逐，离开了祖国德玛西亚，前去攀登巨神峰寻找救赎，但他找到的却是来自星界的更高层的召唤。现在的塔里克与古代巨神族的神力相融合，以瓦洛兰之盾的身份，永不疲倦地警惕着阴险狡诈的虚空腐化之力。
-						</view>
-					</view>
-				</view>
-				<view class="action">
-					<view class="text-grey text-xs">22:20</view>
-					<view class="cuIcon-notice_forbid_fill text-gray"></view>
-				</view>
-			</view>
-			<view class="cu-item">
-				<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Taric.png);">
-					<view class="cu-tag badge">99+</view>
-				</view>
-				<view class="content">
-					<view class="text-grey">
-						<view class="text-cut">瓦洛兰之盾-塔里克</view>
-						<view class="cu-tag round bg-orange sm">战士</view>
-					</view>
-					<view class="text-gray text-sm flex">
-						<view class="text-cut">
-							塔里克是保护者星灵，用超乎寻常的力量守护着符文之地的生命、仁爱以及万物之美。塔里克由于渎职而被放逐，离开了祖国德玛西亚，前去攀登巨神峰寻找救赎，但他找到的却是来自星界的更高层的召唤。现在的塔里克与古代巨神族的神力相融合，以瓦洛兰之盾的身份，永不疲倦地警惕着阴险狡诈的虚空腐化之力。
-						</view>
-					</view>
-				</view>
-				<view class="action">
-					<view class="text-grey text-xs">22:20</view>
-					<view class="cuIcon-notice_forbid_fill text-gray"></view>
-				</view>
-			</view>
-			<view class="cu-item cur">
-				<view class="cu-avatar radius lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big81020.jpg);">
-					<view class="cu-tag badge"></view>
-				</view>
-				<view class="content">
-					<view>
-						<view class="text-cut">瓦罗兰大陆-睡衣守护者-新手保护营</view>
-						<view class="cu-tag round bg-orange sm">6人</view>
-					</view>
-					<view class="text-gray text-sm flex">
-						<view class="text-cut"> 伊泽瑞尔：<text class="cuIcon-locationfill text-orange margin-right-xs"></text> 传送中...</view>
-					</view>
-				</view>
-				<view class="action">
-					<view class="text-grey text-xs">22:20</view>
-					<view class="cuIcon-notice_forbid_fill text-gray"></view>
-				</view>
+			<view class="action text-gray" @click="toHome">
+				<view class="cuIcon-my"></view>我的
 			</view>
 		</view>
 	</view>
@@ -331,6 +61,9 @@
 				modalName: null,
 				StatusBar: this.StatusBar,
 				CustomBar: this.CustomBar,
+				isLogin: uni.getStorageSync("login"),
+				avatar: uni.getStorageSync("avatar"),
+				friends: []
 			};
 		},
 		computed: {
@@ -341,7 +74,44 @@
 				return style
 			}
 		},
+		onLoad() {
+			uni.hideTabBar();
+		},
+		onShow() {
+			this.isLogin = uni.getStorageSync("login");
+			this.avatar = uni.getStorageSync("avatar");
+			this.getFriends();
+			this.$forceUpdate();
+		},
 		methods: {
+			getFriends() {
+				let that = this;
+				uni.request({
+					url: that.$Url + '/chat/friend', //请求接口
+					header: {
+						'content-type': 'application/json; charset=UTF-8', //自定义请求头信息
+					},
+					method: 'POST',
+					data: {
+						userId: uni.getStorageSync("userId")
+					},
+					success: (res) => { //请求成功后返回
+						console.log(res)
+						if (res.data.code == 200) {
+							that.friends = [];
+							that.friends = [].concat(res.data.data.friends);
+							that.$forceUpdate();
+						} else {
+							uni.showToast({
+								icon: 'none',
+								position: 'bottom',
+								title: '请求数据失败'
+							});
+							return;
+						}
+					}
+				});
+			},
 			// ListTouch触摸开始
 			ListTouchStart(e) {
 				this.listTouchStart = e.touches[0].pageX
@@ -360,11 +130,27 @@
 				this.listTouchDirection = null
 			},
 			// 选择消息
-			ListClick(e) {
+			ListClick(item) {
+				console.log(item.friendId)
 				uni.navigateTo({
-					url: "/pages/chat/chat"
+					url: "/pages/chat/chat?friendId=" + item.friendId + "&friendName=" + item.friendName
 				})
-			}
+			},
+			toGame() {
+				uni.switchTab({
+					url: "/pages/game/index"
+				})
+			},
+			toIndex() {
+				uni.switchTab({
+					url: "/pages/index/index"
+				})
+			},
+			toHome() {
+				uni.switchTab({
+					url: "/pages/home/home"
+				})
+			},
 		},
 	}
 </script>
@@ -374,18 +160,19 @@
 		background-image: var(--gradualBlue);
 		width: 100vw;
 	}
+
 	.switch-sex::after {
 		content: "\e716";
 	}
-	
+
 	.switch-sex::before {
 		content: "\e7a9";
 	}
-	
+
 	.switch-music::after {
 		content: "\e66a";
 	}
-	
+
 	.switch-music::before {
 		content: "\e6db";
 	}

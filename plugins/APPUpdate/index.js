@@ -735,16 +735,16 @@ function downloadPopup(data) {
 export default function(isPrompt = false) {
 	getCurrentNo(versionInfo => {
 		getServerNo(versionInfo, isPrompt, res => {
-
-			updatePopup(res, function() {
-				if (res.status == 1) {
-					getDownload(res);
-				}
-				if (res.status == 2) {
-					plus.runtime.openURL(res.pkgUrl);
-				}
-			});
-
+			if(res.status != 0){
+				updatePopup(res, function() {
+					if (res.status == 1) {
+						getDownload(res);
+					}
+					if (res.status == 2) {
+						plus.runtime.openURL(res.pkgUrl);
+					}
+				});
+			}
 		});
 	});
 }

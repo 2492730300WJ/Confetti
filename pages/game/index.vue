@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view :style="[{height:CustomBar + 'px'}]">
-			<view class="cu-bar search bg-gradual-pink fixed" :style="style">
+			<view class="cu-bar search fixed" :style="style" :class="this.$Color">
 				<view class="cu-avatar round" :style="{ backgroundImage:'url(' + (!isLogin?'../../static/img/noLoginAvatar.png':avatar) + ')' }"></view>
 				<view class="search-form radius">
 					<text class="cuIcon-search"></text>
@@ -86,6 +86,24 @@
 				</view>
 			</view>
 		</view>
+		<view class="cu-bar tabbar bg-white margin-top-xl foot">
+			<view class="action text-gray" @click="toIndex">
+				<view class="cuIcon-homefill"></view> 首页
+			</view>
+			<view class="action text-gray" @click="toChat">
+				<view class="cuIcon-weixin"></view>聊天
+			</view>
+			<view class="action text-gray add-action">
+				<button class="cu-btn cuIcon-add shadow" :class="this.$Color"></button>
+				发布
+			</view>
+			<view class="action" :class="this.$BarColor">
+				<view class="cuIcon-game"></view>游戏
+			</view>
+			<view class="action text-gray" @click="toHome">
+				<view class="cuIcon-my"></view>我的
+			</view>
+		</view>
 	</view>
 </template>
 <script>
@@ -136,6 +154,9 @@
 				return style
 			}
 		},
+		onLoad() {
+			uni.hideTabBar();
+		},
 		onShow() {
 			this.refresh();
 		},
@@ -143,6 +164,7 @@
 			refresh() {
 				this.isLogin = uni.getStorageSync("login");
 				this.avatar = uni.getStorageSync("avatar");
+				this.$forceUpdate()
 			},
 			InputFocus(e) {
 				this.InputBottom = e.detail.height
@@ -154,7 +176,22 @@
 				uni.navigateTo({
 					url: "/pages/game/guess2/index"
 				})
-			}
+			},
+			toIndex() {
+				uni.switchTab({
+					url: "/pages/index/index"
+				})
+			},
+			toHome() {
+				uni.switchTab({
+					url: "/pages/home/home"
+				})
+			},
+			toChat() {
+				uni.switchTab({
+					url: "/pages/chat/index"
+				})
+			},
 		}
 	}
 </script>

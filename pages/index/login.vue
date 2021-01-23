@@ -1,8 +1,8 @@
 <template>
 	<view class="login">
-		<cu-custom bgImage="" :isBack="true">
+		<cu-custom bgImage="">
 			<block slot="backText"></block>
-			<block slot="content">登陆</block>
+			<block slot="content">登录</block>
 		</cu-custom>
 		<view class="content">
 			<!-- 头部logo -->
@@ -130,8 +130,8 @@
 					duration:500
 				})
 				setTimeout(function(){
-					uni.navigateBack({
-						delta:1
+					uni.switchTab({
+						url:"/pages/home/home"
 					})
 				},500)
 			},
@@ -184,8 +184,8 @@
 								duration:500
 							})
 							setTimeout(function(){
-								uni.navigateBack({
-									delta:1
+								uni.switchTab({
+									url:"/pages/home/home"
 								})
 							},500)
 						} else {

@@ -1,28 +1,24 @@
 <template>
 	<view>
-		<!-- <basics v-if="PageCur=='basics'"></basics>
-		<components v-if="PageCur=='component'"></components>
-		<home v-if="PageCur=='home'"></home>
-		<view class="cu-bar tabbar bg-white shadow foot">
-			<view class="action" @click="NavChange" data-cur="basics">
-				<view class='cuIcon-cu-image'>
-					<image :src="'/static/tabbar/basics' + [PageCur=='basics'?'_cur':''] + '.png'"></image>
-				</view>
-				<view :class="PageCur=='basics'?'text-green':'text-gray'">首页</view>
+		<view></view>
+		<view class="cu-bar tabbar bg-white margin-top-xl foot">
+			<view class="action" :class="this.$BarColor">
+				<view class="cuIcon-homefill"></view>首页
 			</view>
-			<view class="action" @click="NavChange" data-cur="component">
-				<view class='cuIcon-cu-image'>
-					<image :src="'/static/tabbar/component' + [PageCur == 'component'?'_cur':''] + '.png'"></image>
-				</view>
-				<view :class="PageCur=='component'?'text-green':'text-gray'">xxx</view>
+			<view class="action text-gray" @click="toChat">
+				<view class="cuIcon-weixin"></view>聊天
 			</view>
-			<view class="action" @click="NavChange" data-cur="home">
-				<view class='cuIcon-cu-image'>
-					<image :src="'/static/tabbar/plugin' + [PageCur == 'home'?'_cur':''] + '.png'"></image>
-				</view>
-				<view :class="PageCur=='home'?'text-green':'text-gray'">我的</view>
+			<view class="action text-gray add-action">
+				<button class="cu-btn cuIcon-add shadow" :class="this.$Color"></button>
+				发布
 			</view>
-		</view> -->
+			<view class="action text-gray" @click="toGame">
+				<view class="cuIcon-game"></view>游戏
+			</view>
+			<view class="action text-gray" @click="toHome">
+				<view class="cuIcon-my"></view>我的
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -33,12 +29,28 @@
 				PageCur: 'basics'
 			}
 		},
+		onShow() {
+			this.$forceUpdate();
+		},
 		onLoad() {
+			uni.hideTabBar();
 		},
 		methods: {
-			NavChange: function(e) {
-				this.PageCur = e.currentTarget.dataset.cur
-			}
+			toGame() {
+				uni.switchTab({
+					url: "/pages/game/index"
+				})
+			},
+			toHome() {
+				uni.switchTab({
+					url: "/pages/home/home"
+				})
+			},
+			toChat() {
+				uni.switchTab({
+					url: "/pages/chat/index"
+				})
+			},
 		}
 	}
 </script>
