@@ -93,7 +93,7 @@
 			<view class="action text-gray" @click="toChat">
 				<view class="cuIcon-weixin"></view>聊天
 			</view>
-			<view class="action text-gray add-action">
+			<view class="action text-gray add-action" @click="toBuild()">
 				<button class="cu-btn cuIcon-add shadow" :class="this.$Color"></button>
 				发布
 			</view>
@@ -190,6 +190,11 @@
 			toChat() {
 				uni.switchTab({
 					url: "/pages/chat/index"
+				})
+			},
+			toBuild() {
+				uni.navigateTo({
+					url: "/pages/blog/build"
 				})
 			},
 		}

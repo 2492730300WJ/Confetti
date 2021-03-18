@@ -4,7 +4,7 @@
 			<block slot="backText">返回</block>
 			<block slot="content">{{title}}</block>
 		</cu-custom>
-		<scroll-view class="cu-chat" scroll-y="true" :scroll-with-animation="scrollAnimation" :scroll-top="scrollTop"
+		<scroll-view style="height: 90vh;" class="cu-chat" scroll-y="true" :scroll-with-animation="scrollAnimation" :scroll-top="scrollTop"
 		 :scroll-into-view="scrollToView" @scrolltoupper="loadHistory" upper-threshold="50">
 			<!-- 布局 -->
 			<view v-for="(item, key) in msgList" :key="key" :id="item.id">
@@ -54,31 +54,36 @@
 				scrollToView: '',
 				msgList: [],
 				title: "",
-				friendId:""
+				friendId: ""
 			};
 		},
 		onShow() {
 			let that = this;
 			uni.closeSocket();
 			uni.connectSocket({
-				url: 'ws://47.102.121.70:9999/websocket/' + uni.getStorageSync("userId")
-				// url: 'ws://localhost:9999/websocket/' + uni.getStorageSync("userId")
+				// url: 'ws://47.102.121.70:9999/websocket/' + uni.getStorageSync("userId")
+				url: 'ws://localhost:9999/ws/websocket/' + uni.getStorageSync("userId")
 			});
 			uni.onSocketOpen((res) => {
 				console.log('连接成功', res);
+			});
+			uni.onSocketError(function(res) {
+				console.log('WebSocket连接打开失败，请检查！');
 			});
 			uni.onSocketMessage(function(res) {
 				that.scrollAnimation = true
 				console.log('收到服务器内容：' + res.data);
 				let msg = JSON.parse(res.data)
-				msg.id = 'msg' + (Number(Math.random().toString().substr(3, 10) + Date.now()).toString(36))
-				msg.classify = "user"
 				if (!that.msgList) {
 					that.msgList = [];
 				}
+				msg.id = 'msg' + msg.id;
 				that.msgList.push(msg)
 				// 滚动到最新的消息
-				that.scrollToView = msg.id
+				that.$nextTick(() => {
+					that.scrollAnimation = false
+					that.scrollToView = msg.id
+				})
 				that.$forceUpdate()
 			});
 			that.$forceUpdate()
@@ -90,12 +95,13 @@
 			this.$forceUpdate();
 		},
 		methods: {
-			getMsg(){
+			getMsg() {
 				let that = this;
 				uni.request({
-					url: that.$Url + '/chat/private-msg', //请求接口
+					url: that.$Url + '/ws/private-msg', //请求接口
 					header: {
 						'content-type': 'application/json; charset=UTF-8', //自定义请求头信息
+						'Authorization': uni.getStorageSync("token"),
 					},
 					method: 'POST',
 					data: {
@@ -107,6 +113,10 @@
 						if (res.data.code == 200) {
 							that.msgList = [];
 							that.msgList = [].concat(res.data.data.msg);
+							this.$nextTick(() => {
+								that.scrollAnimation = false
+								that.scrollToView = that.msgList[this.msgList.length - 1].id
+							})
 							that.$forceUpdate();
 						} else {
 							uni.showToast({
@@ -126,9 +136,7 @@
 				this.InputBottom = 0
 			},
 			sendMessage(e) {
-				console.log(1)
 				if (this.text != "" && this.friendId != "") {
-					console.log(2)
 					let message = {
 						fromUser: uni.getStorageSync("userId"),
 						toUser: this.friendId,

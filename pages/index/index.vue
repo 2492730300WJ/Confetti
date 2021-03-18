@@ -1,6 +1,14 @@
 <template>
 	<view>
-		<view></view>
+		<view :style="[{height:CustomBar + 'px'}]">
+			<view class="cu-bar search fixed" :style="style" :class="this.$Color">
+				<view class="cu-avatar round" :style="{ backgroundImage:'url('+avatar + ')' }"></view>
+				<view class="search-form radius">
+					<text class="cuIcon-search"></text>
+					<input @focus="InputFocus" @blur="InputBlur" :adjust-position="false" type="text" placeholder="搜索卡片/文章/视频" confirm-type="search"></input>
+				</view>
+			</view>
+		</view>
 		<view class="cu-bar tabbar bg-white margin-top-xl foot">
 			<view class="action" :class="this.$BarColor">
 				<view class="cuIcon-homefill"></view>首页
@@ -8,7 +16,7 @@
 			<view class="action text-gray" @click="toChat">
 				<view class="cuIcon-weixin"></view>聊天
 			</view>
-			<view class="action text-gray add-action">
+			<view class="action text-gray add-action" @click="toBuild">
 				<button class="cu-btn cuIcon-add shadow" :class="this.$Color"></button>
 				发布
 			</view>
@@ -26,11 +34,22 @@
 	export default {
 		data() {
 		return {
-				PageCur: 'basics'
+				PageCur: 'basics',
+				StatusBar: this.StatusBar,
+				CustomBar: this.CustomBar,
+				avatar: uni.getStorageSync("avatar"),
 			}
 		},
 		onShow() {
 			this.$forceUpdate();
+		},
+		computed: {
+			style() {
+				var StatusBar = this.StatusBar;
+				var CustomBar = this.CustomBar;
+				var style = `height:${CustomBar}px;padding-top:${StatusBar}px;`;
+				return style
+			}
 		},
 		onLoad() {
 			uni.hideTabBar();
@@ -49,6 +68,11 @@
 			toChat() {
 				uni.switchTab({
 					url: "/pages/chat/index"
+				})
+			},
+			toBuild() {
+				uni.navigateTo({
+					url: "/pages/blog/build"
 				})
 			},
 		}

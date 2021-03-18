@@ -8,6 +8,19 @@
 			<view class="cu-item">
 				<view class="content" :class="this.$Color">
 					<view class="cu-capsule radius">
+						<view class="cu-tag bg-white">v1.0.03</view>
+						<view class="cu-tag line-cyan" style="color: white;">2020-01-23</view>
+					</view>
+					<view class="margin-top">
+						<text>
+							1.修复聊天不能滚动的bug
+						</text>
+					</view>
+				</view>
+			</view>
+			<view class="cu-item">
+				<view class="content" :class="this.$Color">
+					<view class="cu-capsule radius">
 						<view class="cu-tag bg-white">v1.0.02</view>
 						<view class="cu-tag line-cyan" style="color: white;">2020-01-23</view>
 					</view>

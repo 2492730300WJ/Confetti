@@ -67,7 +67,9 @@
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}
-
+		},{
+			"path": "pages/blog/build",
+			"style": {}
 		}
     ],
 	"globalStyle": {

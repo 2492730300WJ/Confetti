@@ -118,7 +118,7 @@
 			<view class="action text-gray" @click="toChat">
 				<view class="cuIcon-weixin"></view>聊天
 			</view>
-			<view class="action text-gray add-action">
+			<view class="action text-gray add-action" @click="toBuild()">
 				<button class="cu-btn cuIcon-add shadow" :class="this.$Color"></button>
 				发布
 			</view>
@@ -233,7 +233,7 @@
 						header: {
 							'content-type': 'application/json; charset=UTF-8', //自定义请求头信息
 							'refreshToken': uni.getStorageSync("refreshToken"),
-							'token': uni.getStorageSync("token"),
+							'Authorization': uni.getStorageSync("token"),
 						},
 						method: 'POST',
 						data: {
@@ -296,6 +296,11 @@
 			toGame() {
 				uni.switchTab({
 					url: "/pages/game/index"
+				})
+			},
+			toBuild() {
+				uni.navigateTo({
+					url: "/pages/blog/build"
 				})
 			},
 			toIndex() {

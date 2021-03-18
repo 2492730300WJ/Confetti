@@ -40,7 +40,7 @@
 			<view class="action" :class="this.$BarColor">
 				<view class="cuIcon-weixin"></view>聊天
 			</view>
-			<view class="action text-gray add-action">
+			<view class="action text-gray add-action" @click="toBuild">
 				<button class="cu-btn cuIcon-add shadow" :class="this.$Color"></button>
 				发布
 			</view>
@@ -87,9 +87,10 @@
 			getFriends() {
 				let that = this;
 				uni.request({
-					url: that.$Url + '/chat/friend', //请求接口
+					url: that.$Url + '/ws/friend', //请求接口
 					header: {
 						'content-type': 'application/json; charset=UTF-8', //自定义请求头信息
+						'Authorization': uni.getStorageSync("token"),
 					},
 					method: 'POST',
 					data: {
@@ -149,6 +150,11 @@
 			toHome() {
 				uni.switchTab({
 					url: "/pages/home/home"
+				})
+			},
+			toBuild() {
+				uni.navigateTo({
+					url: "/pages/blog/build"
 				})
 			},
 		},
